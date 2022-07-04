@@ -27,14 +27,23 @@ public class DemoLoginAspect {
 	// Execute the target method
 	Object result = null;
 
-	// Swalloing the exception. The main program will not know about it.
+	// Re-throwing the exception
 	try{
 	    result = proceedingJoinPoint.proceed();
 	} catch (Exception e) {
 	    logger.warning(e.getMessage());
 
-	    result = "Highway is closed but finding alternative route...";
+	    throw e;
 	}
+
+	// Swallowing the exception. The main program will not know about it.
+	// try{
+	//     result = proceedingJoinPoint.proceed();
+	// } catch (Exception e) {
+	//     logger.warning(e.getMessage());
+
+	//     result = "Highway is closed but finding alternative route...";
+	// }
 
 	// End the timestamp
 	long end = System.currentTimeMillis();
