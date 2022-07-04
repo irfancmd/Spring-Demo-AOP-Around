@@ -14,9 +14,11 @@ public class AroundWithLoggerDemoApp {
 	AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DemoConfig.class);
 	
 	TrafficFortuneService trafficFortuneService = context.getBean("trafficFortuneService", TrafficFortuneService.class);
-	
+
+	boolean tripWire = true;
+
 	logger.info("Main Program Calling: getFortune()");
-	logger.info("The Fortune is: " + trafficFortuneService.getFortune());
+	logger.info("The Fortune is: " + trafficFortuneService.getFortune(tripWire));
 	logger.info("Main Program is done");
 	context.close();
     }
