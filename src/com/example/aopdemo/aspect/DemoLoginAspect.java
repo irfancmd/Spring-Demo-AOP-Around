@@ -1,5 +1,7 @@
 package com.example.aopdemo.aspect;
 
+import java.util.logging.Logger;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -10,11 +12,14 @@ import org.springframework.stereotype.Component;
 @Component
 @Order(2)
 public class DemoLoginAspect {
+
+    private Logger logger = Logger.getLogger(DemoLoginAspect.class.getName());
+
     @Around("execution(* com.example.aopdemo.service.*.getFortune(..))")
     // The ProceedingJoinPoint contains a handle to the target method
     public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
 	String methodName = proceedingJoinPoint.getSignature().toShortString();
-	System.out.println("\n ===> Calling @Around on: " + methodName);
+	logger.info("\n ===> Calling @Around on: " + methodName);
 	
 	// Start the timestamp
 	long start = System.currentTimeMillis();
@@ -27,7 +32,7 @@ public class DemoLoginAspect {
 
 	// Display the duraton
 	long duration = end - start;
-	System.out.println("\n ===> Duration: " + (duration / 1000.0) + " seconds");
+	logger.info("\n ===> Duration: " + (duration / 1000.0) + " seconds");
 
 	return result;
     }
